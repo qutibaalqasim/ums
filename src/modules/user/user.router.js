@@ -1,6 +1,8 @@
 import { Router} from "express";
 import userModel from "../../../DB/model/user.model.js";
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
 
 const router = Router();
 
@@ -33,7 +35,8 @@ router.post('/login',async (req,res)=>{
         return res.status(400).json({message:"wrong password"});
     }
 
-    return res.status(200).json({message:"valid user",user});
+    const token = jwt.sign({id:user.id,name:user.userName,email:user.email }, 'qqq');
+    return res.status(200).json({message:"valid user",token});
 });
 
 

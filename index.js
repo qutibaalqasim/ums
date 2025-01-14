@@ -8,6 +8,6 @@ connectDB();
 app.use('/users', userRouter);
 
 
-app.listen(3000,()=>{
-    console.log('running on port 3000...');
+app.listen(6000,()=>{
+    console.log("running on port 6000...");
 });
