@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import {DataTypes } from "sequelize";
 import { sequelize } from "../connection.js";
 
 const userModel = sequelize.define('User',{
