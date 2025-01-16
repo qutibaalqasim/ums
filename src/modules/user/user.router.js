@@ -12,6 +12,25 @@ router.get('/', async (req, res) => {
   return res.status(200).json({ message: "success", users });
 });
 
+router.delete('/:id',async (req,res)=>{
+  const {id} = req.params;
+  const user = await userModel.findByPk(id);
+
+  if(user == null){
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  await userModel.destroy({
+    where:{
+      id
+    },
+  });
+
+  return res.status(200).json({message:"user deleted successfully"});
+});
+
+
+
 router.post('/', async (req, res) => {
   const { userName, email, password } = req.body;
  
