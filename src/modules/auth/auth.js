@@ -5,7 +5,7 @@ import userModel from "../../../DB/model/user.model.js";
 
 const router = Router();
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     const { userName, email, password } = req.body;
    
     const hashedPassword = bcrypt.hashSync(password, 8);
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
     }
   
     const token = jwt.sign(
-      { id: user.id, name: user.userName },
+      { id: user.id, name: user.userName, role: user.role },
        'qqq' 
     );
   
