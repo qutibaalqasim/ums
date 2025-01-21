@@ -1,25 +1,18 @@
 import { Router } from "express";
 import userModel from "../../../DB/model/user.model.js";
-import jwt from 'jsonwebtoken';
+import auth from "../../midleware/auth.js";
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', auth() , async (req, res) => {
   const users = await userModel.findAll({
     attributes:["id","userName","email"],
   });
   return res.status(200).json({ message: "success", users });
 });
 
-router.delete('/:id',async (req,res)=>{
+router.delete('/:id', auth() ,async (req,res)=>{
   const {id} = req.params;
-  const {token} = req.headers;
-
-  const decoded = jwt.verify(token , 'qqq');
-
-  if(decoded.role == 'user'){
-    return res.status(403).json({ message: "this user not admin can't delete" });
-  }
   const user = await userModel.findByPk(id);
 
   if(user == null){

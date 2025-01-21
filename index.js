@@ -1,7 +1,7 @@
 import express from 'express';
 import { connectDB } from './DB/connection.js';
 import userRouter from './src/modules/user/user.router.js'
-import authRouter from './src/modules/auth/auth.js';
+import authRouter from './src/modules/auth/auth.router.js';
 
 const app = express();
 app.use(express.json());
