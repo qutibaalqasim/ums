@@ -2,14 +2,19 @@ import { Router } from "express";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userModel from "../../../DB/model/user.model.js";
+import { loginSchema, registerSchema } from "./auth.validation.js";
 
 const router = Router();
 
 router.post('/register', async (req, res) => {
   try{
     const { userName, email, password } = req.body;
-   
-    const hashedPassword = bcrypt.hashSync(password, 8);
+   const result =  registerSchema.validate({userName, email, password},{abortEarly:false});
+   if(result.error){
+    return res.status(400).json({message:"validation error", error:result.error});
+   }
+
+   const hashedPassword = bcrypt.hashSync(password, 8);
     await userModel.create({ userName, email, password: hashedPassword });
     return res.status(201).json({ message: "success" });
   }catch(error){
@@ -20,6 +25,11 @@ router.post('/register', async (req, res) => {
   router.post('/login', async (req, res) => {
     try{
     const { email, password } = req.body;
+    const result =  loginSchema.validate({ email, password},{abortEarly:false});
+
+    if(result.error){
+    return res.status(400).json({message:"validation error", error:result.error});
+    }
   
     const user = await userModel.findOne({
       where: { email },
