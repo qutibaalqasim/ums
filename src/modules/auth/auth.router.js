@@ -6,14 +6,19 @@ import userModel from "../../../DB/model/user.model.js";
 const router = Router();
 
 router.post('/register', async (req, res) => {
+  try{
     const { userName, email, password } = req.body;
    
     const hashedPassword = bcrypt.hashSync(password, 8);
     await userModel.create({ userName, email, password: hashedPassword });
     return res.status(201).json({ message: "success" });
+  }catch(error){
+    res.status(500).json({ message:"server message" , error });
+  }
   });
   
   router.post('/login', async (req, res) => {
+    try{
     const { email, password } = req.body;
   
     const user = await userModel.findOne({
@@ -34,6 +39,9 @@ router.post('/register', async (req, res) => {
     );
   
     return res.status(200).json({ message: "Valid user", token });
+  }catch(error){
+    res.status(500).json({ message:"server message" , error });
+  }
   });
 
 

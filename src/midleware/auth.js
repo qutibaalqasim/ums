@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 const auth = ()=>{
     
     return (req,res,next)=>{
+        try{
         const {token} = req.headers;
         
         const decoded = jwt.verify(token , 'qqq');
@@ -13,7 +14,10 @@ const auth = ()=>{
           }
 
             next();
+        }catch(error){
+            return res.status(500).json({message:"server error", error});
         }
+    }
 }
 
 
