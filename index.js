@@ -1,15 +1,10 @@
 import express from 'express';
-import { connectDB } from './DB/connection.js';
-import userRouter from './src/modules/user/user.router.js'
-import authRouter from './src/modules/auth/auth.router.js';
+import initApp from './src/index.router.js';
 
 const app = express();
 app.use(express.json());
-connectDB();
 
-app.use('/users', userRouter);
-app.use('/auth', authRouter);
-
+initApp(app);
 
 app.listen(9000,()=>{
     console.log("running on port 9000...");

@@ -13,6 +13,8 @@ const auth = ()=>{
             return res.status(403).json({ message: "not authrized user" });
           }
 
+          req.id = decoded.id;
+
             next();
         }catch(error){
             return res.status(500).json({message:"server error", error});
