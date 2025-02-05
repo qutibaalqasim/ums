@@ -1,13 +1,20 @@
+import { AppError } from "../utils/AppError.js";
 
 const validation = (schema)=>{
-
-    return (req,res,next)=>{
-        const result =  schema.validate(req.body ,{abortEarly:false});
-   if(result.error){
-    return res.status(400).json({message:"validation error", error:result.error.details});
-   }
-    next();
+return (req,res,next)=>{
+    
+    const inputData = {...req.body, ...req.params};
+    const validateResult = schema.validate(inputData,{abortEarly:false});
+    
+   
+    if(validateResult?.error){
+        return next(new AppError(validateResult.error,400));
     }
+
+    next();
+    
+}
+  
 }
 
 export default validation;
