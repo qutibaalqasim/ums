@@ -1,5 +1,5 @@
 import userModel from "../../../DB/model/user.model.js";
-import { AppError } from "../../utils/appError.js";
+import { AppError } from "../../utils/AppError.js";
 import cloudinary from "../../utils/cloudinary.js";
 
 

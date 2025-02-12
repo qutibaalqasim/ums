@@ -11,7 +11,7 @@ const router = Router();
 
 router.get('/', asyncHandler(getBlog) );
 
-router.post('/' ,auth(),validation(createBlogSchema), asyncHandler(createBlog) );
+router.post('/' ,auth(),validation(createBlogSchema), asyncHandler(createBlog));
 
 router.get('/:id',validation(blogDetailsSchema,'params'), asyncHandler(getBlogDetails));
 

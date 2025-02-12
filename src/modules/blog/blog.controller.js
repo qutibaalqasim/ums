@@ -1,6 +1,6 @@
 import blogModel from "../../../DB/model/blog.model.js";
 import userModel from "../../../DB/model/user.model.js";
-import { AppError } from "../../utils/appError.js";
+import { AppError } from "../../utils/AppError.js";
 
 
 export const getBlog = async (req,res)=>{
